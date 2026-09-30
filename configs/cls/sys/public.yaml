@@ -1,0 +1,5 @@
+# @package _global_
+# Paths to read and save data
+parent_path: ""
+train_path: ""
+output_dir: ${hydra:runtime.cwd}/weights

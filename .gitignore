@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+
+# Downloaded model weights and run outputs
+weights/
+outputs/
+inference_videos/
+predictions.csv
+*.log

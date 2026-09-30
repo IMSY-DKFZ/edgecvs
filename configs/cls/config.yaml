@@ -1,0 +1,33 @@
+defaults:
+  - sys: public
+  - override hydra/job_logging: stdout   # log to the console only (no .log file in the working directory)
+  - _self_
+
+# Model to load: <output_dir>/runs/<exp>/config.yaml + <exp>-fold<k>.safetensors (or fold<k>/checkpoints/last.pth)
+exp: edgecvs-5m
+# Hugging Face repo holding <exp>/ (downloaded on first use; hf_repo=null: local weights only)
+hf_repo: IMSY-DKFZ/edgecvs
+device: cuda:0
+valid_batch_size: 64
+tta: false
+n_tta: 2
+inference: true
+
+# Folder inference (cls/inference_folder.py)
+seg_head: false             # true: also run the segmentation head (slower, not needed for the CSV; video always runs it)
+input_dir:            # folder of images, searched recursively (.jpg/.jpeg/.png)
+output_csv: predictions.csv
+
+# Video inference (cls/inference_video.py)
+input_video: ???            # video file
+start: null                 # optional: "mm:ss", "hh:mm:ss" or seconds
+end: null                   # optional: same format; null = until the end
+output_video_dir: inference_videos
+smoothing_window: 15        # frames averaged for the displayed probabilities
+render_height: 1080         # output height (low-res videos are upscaled so the overlay stays sharp)
+encode_crf: 19              # H.264 quality (lower = better, larger files)
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
